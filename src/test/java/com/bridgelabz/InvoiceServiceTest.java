@@ -4,10 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * The cab service is a subscription based service where the customer books a cab and pays the bill at the end of the month.
- * UC1 : Given Distance and Time, the invoice generator should return the total fare for the journey.
- *
  * @author : VAISHNAVI R. VISHWAKRMA.
+ * @purpose : To Implement Cab Invoice Generator.
  * @since : 29.09.2021
  */
 public class InvoiceServiceTest {
@@ -38,4 +36,16 @@ public class InvoiceServiceTest {
         double fare = invoiceGenerator.calculatorFare(distance, time);
         Assertions.assertEquals(5, fare, 0.0);
     }
+
+    @Test
+    public void givenMultipleRides_ShouldReturnInvoiceSummary() {
+        Ride[] rides = {
+                new Ride(2.0, 5),
+                new Ride(0.1, 1),
+                new Ride(4.1, 25)
+        };
+        double totalFare = InvoiceGenerator.calculateFareForMultipleRides(rides);
+        Assertions.assertEquals(96, totalFare, 0);
+    }
+
 }

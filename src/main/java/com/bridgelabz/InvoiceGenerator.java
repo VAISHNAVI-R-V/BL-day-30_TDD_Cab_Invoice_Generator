@@ -13,17 +13,27 @@ public class InvoiceGenerator {
 
     /**
      * Purpose : Given distance and time,
-     * Return total fare for the journey
-     *
+     * Return total fare for the journey.
+     * <p>
      * Condition : If minimum total fare is less than the MINIMUM_FARE, return MINIMUM_FARE
      *
      * @param distance
      * @param time
      * @return
      */
-    public double calculatorFare(double distance, int time) {
+    public static double calculatorFare(double distance, int time) {
         double totalFare = distance * PER_KILOMETER_COST + time * PER_MINUTE_COST;
         return Math.max(MAXIMUM_FARE, totalFare);
     }
+
+    public static double calculateFareForMultipleRides(Ride[] rides) {
+        double aggregateFare = 0.0;
+        for (Ride ride : rides) {
+            aggregateFare += calculatorFare(ride.distance, ride.time);
+        }
+        return aggregateFare;
+    }
+
+
 
 }
