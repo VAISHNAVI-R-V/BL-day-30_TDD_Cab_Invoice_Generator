@@ -1,7 +1,10 @@
 package com.bridgelabz;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.Hashtable;
 
 /**
  * @author : VAISHNAVI R. VISHWAKRMA.
@@ -52,5 +55,34 @@ public class InvoiceServiceTest {
         double totalFare = InvoiceGenerator.calculateFareForMultipleRides(rides);
         Assertions.assertEquals(96, totalFare, 0);
     }
+    /**
+     *** Step 4
+     * Purpose : Given userID,
+     *           calculate the aggregate total for all the rides
+     *           calculate the average fare per ride
+     *           return the final invoice for that particular userID
+     */
 
+    @Test
+    public void givenUserID_ShouldReturnInvoiceSummary() {
+        Hashtable<Integer, Ride[]> htable = new Hashtable<>();
+
+        int userID1 = 1;
+        Ride[] ride1 = { new Ride(2.0, 5),
+                new Ride(0.1, 1) };
+        htable.put(userID1, ride1);
+
+        int userID2 = 2;
+        Ride[] ride2 = { new Ride(4.0, 10),
+                new Ride(1, 1) };
+        htable.put(userID2, ride2);
+
+        int userID = 2;
+
+        if(htable.containsKey(userID)) {
+            InvoiceSummary summary = invoiceGenerator.calculateFareSummary(htable.get(userID));
+            InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 61);
+            Assert.assertEquals(expectedInvoiceSummary, summary);
+        }
+    }
 }
